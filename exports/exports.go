@@ -18,8 +18,8 @@ func SetExports(e Exports) {
 type F1 uint8
 
 const (
-	A F1 = 1 << iota
-	B
+	F1_A F1 = 1 << iota
+	F1_B
 )
 
 type R1 struct {

@@ -12,7 +12,7 @@ func init() {
 type RecordsExportImpl struct{}
 
 func (i RecordsExportImpl) TestImports() {
-	imports.RoundtripFlags1(imports.A)
+	imports.RoundtripFlags1(imports.F1_A)
 	imports.RoundtripRecord1(imports.R1{})
 }
 
