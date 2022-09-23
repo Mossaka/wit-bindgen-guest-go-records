@@ -1,0 +1,7 @@
+test-imports: func()
+
+flags f1 { a, b }
+roundtrip-flags1: func(a: f1) -> f1
+
+record r1 { a: u8, b: f1 }
+roundtrip-record1: func(a: r1) -> r1
