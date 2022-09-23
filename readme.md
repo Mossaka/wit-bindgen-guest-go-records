@@ -1,10 +1,10 @@
 ## An hypothetical example of wit-bindgen go guest import generation
 
-Calling `wit-bindgen guest go -i integers.wit` will generate
+Calling `wit-bindgen guest go -i imports.wit` will generate
 
 ```
-/integers
-    integers.go
-    integers.c
-    integers.h
+/imports
+    imports.go
+    imports.c
+    imports.h
 ```
