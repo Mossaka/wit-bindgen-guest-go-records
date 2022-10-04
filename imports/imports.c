@@ -32,3 +32,18 @@ void imports_roundtrip_record1(imports_r1_t *a, imports_r1_t *ret0) {
     (int32_t) (*((uint8_t*) (ptr + 1))),
   };
 }
+__attribute__((import_module("imports"), import_name("tuple0: func(a: tuple<>) -> tuple<>")))
+void __wasm_import_imports_tuple0(void);
+void imports_tuple0(imports_tuple0_t *a, imports_tuple0_t *ret0) {
+  __wasm_import_imports_tuple0();
+  *ret0 = (imports_tuple0_t) {
+  };
+}
+__attribute__((import_module("imports"), import_name("tuple1: func(a: tuple<u8>) -> tuple<u8>")))
+int32_t __wasm_import_imports_tuple1(int32_t);
+void imports_tuple1(imports_tuple1_u8_t *a, imports_tuple1_u8_t *ret0) {
+  int32_t ret = __wasm_import_imports_tuple1((int32_t) ((*a).f0));
+  *ret0 = (imports_tuple1_u8_t) {
+    (uint8_t) (ret),
+  };
+}

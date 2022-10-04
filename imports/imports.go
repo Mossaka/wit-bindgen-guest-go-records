@@ -15,6 +15,11 @@ type R1 struct {
 	B F1
 }
 
+type Tuple0T struct{}
+type Tuple1Uint8T struct {
+	F0 uint8
+}
+
 func RoundtripFlags1(a F1) F1 {
 	return F1(C.imports_roundtrip_flags1(C.uint8_t(a)))
 }
@@ -29,5 +34,20 @@ func RoundtripRecord1(a R1) R1 {
 	return R1{
 		A: uint8(ret.a),
 		B: F1(ret.b),
+	}
+}
+
+func Tuple0(a Tuple0T) Tuple0T {
+	return Tuple0T{}
+}
+
+func Tuple1(a Tuple1Uint8T) Tuple1Uint8T {
+	param := C.imports_tuple1_u8_t{
+		f0: C.uint8_t(a.F0),
+	}
+	ret := C.imports_tuple1_u8_t{}
+	C.imports_tuple1(&param, &ret)
+	return Tuple1Uint8T{
+		F0: uint8(ret.f0),
 	}
 }

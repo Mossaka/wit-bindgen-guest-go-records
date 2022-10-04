@@ -2,7 +2,7 @@ from abc import abstractmethod
 import ctypes
 from dataclasses import dataclass
 from enum import Flag, auto
-from typing import Any, cast
+from typing import Any, Tuple, cast
 import wasmtime
 
 try:
@@ -42,6 +42,12 @@ class Imports(Protocol):
     @abstractmethod
     def roundtrip_record1(self, a: R1) -> R1:
         raise NotImplementedError
+    @abstractmethod
+    def tuple0(self, a: None) -> None:
+        raise NotImplementedError
+    @abstractmethod
+    def tuple1(self, a: Tuple[int]) -> Tuple[int]:
+        raise NotImplementedError
 
 def add_imports_to_linker(linker: wasmtime.Linker, store: wasmtime.Store, host: Imports) -> None:
     ty = wasmtime.FuncType([wasmtime.ValType.i32()], [wasmtime.ValType.i32()])
@@ -61,3 +67,13 @@ def add_imports_to_linker(linker: wasmtime.Linker, store: wasmtime.Store, host: 
         _store(ctypes.c_uint8, memory, caller, arg2, 0, _clamp(field, 0, 255))
         _store(ctypes.c_uint8, memory, caller, arg2, 1, (field0).value)
     linker.define('imports', 'roundtrip-record1: func(a: record { a: u8, b: flags { a, b } }) -> record { a: u8, b: flags { a, b } }', wasmtime.Func(store, ty, roundtrip_record1, access_caller = True))
+    ty = wasmtime.FuncType([], [])
+    def tuple0(caller: wasmtime.Caller) -> None:
+        ret = host.tuple0(None)
+    linker.define('imports', 'tuple0: func(a: tuple<>) -> tuple<>', wasmtime.Func(store, ty, tuple0, access_caller = True))
+    ty = wasmtime.FuncType([wasmtime.ValType.i32()], [wasmtime.ValType.i32()])
+    def tuple1(caller: wasmtime.Caller, arg0: int) -> int:
+        ret = host.tuple1((_clamp(arg0, 0, 255),))
+        (tuplei,) = ret
+        return _clamp(tuplei, 0, 255)
+    linker.define('imports', 'tuple1: func(a: tuple<u8>) -> tuple<u8>', wasmtime.Func(store, ty, tuple1, access_caller = True))

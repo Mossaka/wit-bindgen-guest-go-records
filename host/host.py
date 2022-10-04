@@ -13,6 +13,12 @@ class MyImports:
     def roundtrip_record1(self, a: i.R1) -> i.R1:
         return a
 
+    def tuple0(self, a: None) -> None:
+        pass
+
+    def tuple1(self, a: Tuple[int]) -> Tuple[int]:
+        return (a[0],)
+
 def run(wasm_file: str) -> None:
     store = wasmtime.Store()
     module = wasmtime.Module.from_file(store.engine, wasm_file)
@@ -38,5 +44,7 @@ def run(wasm_file: str) -> None:
     assert(r.a == 0)
     assert(r.b == (e.F1.A | e.F1.B))
 
+    wasm.tuple0(store, None)
+    assert(wasm.tuple1(store, (1,)) == (1,))
 if __name__ == '__main__':
     run(sys.argv[1])

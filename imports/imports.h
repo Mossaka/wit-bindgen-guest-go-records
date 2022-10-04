@@ -14,8 +14,15 @@ extern "C"
     uint8_t a;
     imports_f1_t b;
   } imports_r1_t;
+  typedef struct {
+  } imports_tuple0_t;
+  typedef struct {
+    uint8_t f0;
+  } imports_tuple1_u8_t;
   imports_f1_t imports_roundtrip_flags1(imports_f1_t a);
   void imports_roundtrip_record1(imports_r1_t *a, imports_r1_t *ret0);
+  void imports_tuple0(imports_tuple0_t *a, imports_tuple0_t *ret0);
+  void imports_tuple1(imports_tuple1_u8_t *a, imports_tuple1_u8_t *ret0);
   #ifdef __cplusplus
 }
 #endif
