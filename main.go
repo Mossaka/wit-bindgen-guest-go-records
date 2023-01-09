@@ -1,39 +1,38 @@
 package main
 
 import (
-	"github.com/mossaka/go-wit-bindgen-records/exports"
-	"github.com/mossaka/go-wit-bindgen-records/imports"
+	"github.com/mossaka/go-wit-bindgen-records/records"
 )
 
 func init() {
-	exports.SetExports(RecordsExportImpl{})
+	records.SetExports(RecordsExportImpl{})
 }
 
 type RecordsExportImpl struct{}
 
-func (i RecordsExportImpl) TestImports() {
-	imports.RoundtripFlags1(imports.F1_A)
-	imports.RoundtripRecord1(imports.R1{})
-	imports.Tuple0(imports.Tuple0T{})
-	imports.Tuple1(imports.Tuple1Uint8T{
+func (i RecordsExportImpl) RecordsTestImports() {
+	records.RoundtripFlags1(records.F1_A)
+	records.RoundtripRecord1(records.R1{})
+	records.Tuple0(records.Tuple0T{})
+	records.Tuple1(records.Tuple1Uint8T{
 		F0: 0,
 	})
 }
 
-func (i RecordsExportImpl) RoundtripFlags1(a exports.F1) exports.F1 {
+func (i RecordsExportImpl) RecordsRoundtripFlags1(a records.F1) records.F1 {
 	return a
 }
 
-func (i RecordsExportImpl) RoundtripRecord1(a exports.R1) exports.R1 {
+func (i RecordsExportImpl) RecordsRoundtripRecord1(a records.R1) records.R1 {
 	return a
 }
 
-func (i RecordsExportImpl) Tuple0(a exports.Tuple0T) exports.Tuple0T {
+func (i RecordsExportImpl) RecordsTuple0(a records.Tuple0T) records.Tuple0T {
 	return a
 }
 
-func (i RecordsExportImpl) Tuple1(a exports.Tuple1Uint8T) exports.Tuple1Uint8T {
-	return exports.Tuple1Uint8T{F0: a.F0}
+func (i RecordsExportImpl) RecordsTuple1(a records.Tuple1Uint8T) records.Tuple1Uint8T {
+	return records.Tuple1Uint8T{F0: a.F0}
 }
 
 func main() {

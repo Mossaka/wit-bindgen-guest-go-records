@@ -1,0 +1,28 @@
+interface exports {
+	test-imports: func()
+
+	flags f1 { a, b }
+	roundtrip-flags1: func(a: f1) -> f1
+	
+	record r1 { a: u8, b: f1 }
+	roundtrip-record1: func(a: r1) -> r1
+	
+	tuple0: func(a: tuple<>) -> tuple<>
+	tuple1: func(a: tuple<u8>) -> tuple<u8>
+}
+
+interface imports {
+	flags f1 { a, b }
+	roundtrip-flags1: func(a: f1) -> f1
+
+	record r1 { a: u8, b: f1 }
+	roundtrip-record1: func(a: r1) -> r1
+
+	tuple0: func(a: tuple<>) -> tuple<>
+	tuple1: func(a: tuple<u8>) -> tuple<u8>
+}
+
+world records {
+  import imports: imports
+  default export exports
+}
