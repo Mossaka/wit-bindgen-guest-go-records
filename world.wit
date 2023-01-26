@@ -15,7 +15,8 @@ interface imports {
 	flags f1 { a, b }
 	roundtrip-flags1: func(a: f1) -> f1
 
-	record r1 { a: u8, b: f1 }
+	record r1 { a: u8, b: r2 }
+	record r2 { c: u8, d: u8 }
 	roundtrip-record1: func(a: r1) -> r1
 
 	tuple0: func(a: tuple<>) -> tuple<>

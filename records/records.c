@@ -5,7 +5,7 @@ __attribute__((import_module("imports"), import_name("roundtrip-flags1")))
 int32_t __wasm_import_imports_roundtrip_flags1(int32_t);
 
 __attribute__((import_module("imports"), import_name("roundtrip-record1")))
-void __wasm_import_imports_roundtrip_record1(int32_t, int32_t, int32_t);
+void __wasm_import_imports_roundtrip_record1(int32_t, int32_t, int32_t, int32_t);
 
 __attribute__((import_module("imports"), import_name("tuple0")))
 void __wasm_import_imports_tuple0(void);
@@ -32,12 +32,15 @@ imports_f1_t imports_roundtrip_flags1(imports_f1_t a) {
 
 void imports_roundtrip_record1(imports_r1_t *a, imports_r1_t *ret) {
   __attribute__((aligned(1)))
-  uint8_t ret_area[2];
+  uint8_t ret_area[3];
   int32_t ptr = (int32_t) &ret_area;
-  __wasm_import_imports_roundtrip_record1((int32_t) ((*a).a), (*a).b, ptr);
+  __wasm_import_imports_roundtrip_record1((int32_t) ((*a).a), (int32_t) (((*a).b).c), (int32_t) (((*a).b).d), ptr);
   *ret = (imports_r1_t) {
     (uint8_t) ((int32_t) (*((uint8_t*) (ptr + 0)))),
-    (int32_t) (*((uint8_t*) (ptr + 1))),
+    (imports_r2_t) {
+      (uint8_t) ((int32_t) (*((uint8_t*) (ptr + 1)))),
+      (uint8_t) ((int32_t) (*((uint8_t*) (ptr + 2)))),
+    },
   };
 }
 

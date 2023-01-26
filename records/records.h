@@ -14,8 +14,13 @@ typedef uint8_t imports_f1_t;
 #define IMPORTS_F1_B (1 << 1)
 
 typedef struct {
+  uint8_t c;
+  uint8_t d;
+} imports_r2_t;
+
+typedef struct {
   uint8_t a;
-  imports_f1_t b;
+  imports_r2_t b;
 } imports_r1_t;
 
 typedef struct {
